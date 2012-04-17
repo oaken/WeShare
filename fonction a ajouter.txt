@@ -1,0 +1,2 @@
+connect_bdd (a renommer dbconnect)
+getUser
