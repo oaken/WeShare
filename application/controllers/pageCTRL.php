@@ -13,6 +13,10 @@ if (isset($_GET["page"]))
 		case "film.php":
 			include_once("filmCTRL.php");
 			break;
+		case "membres.php":
+			$membres = getMember();
+			$layout = "membres.php";
+			break;
 		default:
 			$layout = "erreur.php";
 		

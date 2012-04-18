@@ -27,8 +27,8 @@
 					<li><a href="index.php?page=accueil.php" ><em><b>Accueil</b></em></a></li>
 					<li><a href="index.php?page=films.php"><em><b>Films</b></em></a></li>
 					<li><a href="index.php?page=evenements.php"><em><b>Evènements</b></em></a></li>
+					<li><a href="index.php?page=membres.php" class="active"><em><b>Membres</b></em></a></li>
 					<li><a href="index.php?page=profil.php"><em><b>Profil</b></em></a></li>
-					<li><a href="index.php?page=contact.php" class="active"><em><b>Contact</b></em></a></li>
 				</ul>
 			</div>
 		</div>

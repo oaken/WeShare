@@ -107,9 +107,9 @@ function register($register_pseudo,
 	$error[3] = 0;
 	
 	//verif pseudo
-	$result = mysql_query("SELECT Pseudo FROM Users
+	$S_result = mysql_query("SELECT Pseudo FROM Users
 						WHERE Pseudo='" . $register_pseudo . "'", dbConnect());
-	$isPseudoInUse = mysql_num_rows($result);
+	$S_isPseudoInUse = mysql_num_rows($S_result);
 	if (!isset($result))
 	{
 		$error[3] = 1;
@@ -119,7 +119,7 @@ function register($register_pseudo,
 	{
 		$error[0] = 1;
 	}
-	elseif ($isPseudoInUse == 1)
+	elseif ($S_isPseudoInUse == 1)
 	{
 		$error[0] = 2;
 	}
@@ -135,9 +135,9 @@ function register($register_pseudo,
 	}
 	
 	//verif mail
-	$result = mysql_query("SELECT Mail FROM Users
+	$S_result = mysql_query("SELECT Mail FROM Users
 						WHERE Mail='" . $register_email . "'", dbConnect());
-	$isMailInUse = mysql_num_rows($result);
+	$S_isMailInUse = mysql_num_rows($S_result);
 	if (!isset($result))
 	{
 		$error[3] = 1;
@@ -147,7 +147,7 @@ function register($register_pseudo,
 	{
 		$error[2] = 1;
 	}
-	elseif($isMailInUse == 1)
+	elseif($S_isMailInUse == 1)
 	{
 		$error[2] = 2;
 	}
@@ -158,7 +158,7 @@ function register($register_pseudo,
 	//enregistrement dans la bdd
 	if($error[0] == 0 && $error[1] == 0 && $error[2] == 0)
 	{
-		$query = sprintf("INSERT INTO Users
+		$S_query = sprintf("INSERT INTO Users
 						(RegisterDate, Pseudo, Password, Mail, LastName,
 							FirstName, BornDate, Address, City, Country, Phone)
 						VALUES ('%s', '%s', '%s', '%s', '%s',
@@ -174,8 +174,8 @@ function register($register_pseudo,
 						$register_city,
 						$register_country,
 -						$register_phoneNumber);
-		$result = mysql_query($query, dbConnect());
-		if (!isset($result))
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
 		{
 			$error[3] = 1;
 		}
@@ -211,5 +211,38 @@ function connect($pseudo, $pass)
 		$error = 1;
 	}
 	return $error;
+}
+
+/*
+Fonction permettant de lister les membres
+
+$membres (S): array contenant les pseudo et date d'inscription des membres
+*/
+function getMember()
+{
+	$S_query = "SELECT IdUser, Pseudo, RegisterDate FROM Users";
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		$membres = -1;
+	}
+	else
+	{
+		$S_nbRow = mysql_num_rows($S_result);
+		for ($i=0;$i< $S_nbRow;$i++)
+		{
+			$membres[] = mysql_fetch_assoc($S_result);
+			$membres[$i]['RegisterDate'] = formateDate($membres[$i]['RegisterDate']);
+		}
+	}
+	return $membres;
+}
+
+function formateDate($date)
+{
+	list($year, $month, $day) = explode('-', $date);
+	$newDate = $day."/".$month."/".$year;
+	
+	return $newDate;
 }
 ?>
