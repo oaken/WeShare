@@ -6,9 +6,7 @@
 	
 	
 	<div id = "home">
-		<a href="?page=register.php"><h1>INSCRIPTION</h1></a>
+		<a href="index.php?page=register.php"><h1>INSCRIPTION</h1></a>
 	</div>
-	
-	<?php echo getcwd(); ?>
 	<!--End of home page-->
 	
