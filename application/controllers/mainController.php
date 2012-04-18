@@ -24,7 +24,7 @@ traitement des informations
 $user = getUser();
 if (isset($_POST["page"]))
 {
-	switch(isset($_POST["page"]))
+	switch($_POST["page"])
 	{
 		case "login.php":
 			$layout = "login.php";
