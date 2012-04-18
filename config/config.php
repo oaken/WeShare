@@ -8,5 +8,5 @@ define("DIR_CONTROLS","./application/controllers");
 define("DIR_MODELS","./application/models");
 define("DIR_VIEWS","./application/views");
 define("DIR_PUBLICS","./public");
-define("ENV_TEST","1")
+define("ENV_TEST","0")
 ?>

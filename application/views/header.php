@@ -15,9 +15,12 @@
 	<script src="<?php echo DIR_PUBLICS; ?>/js/Myriad_Pro_300.font.js" type="text/javascript"></script>
 	<script src="<?php echo DIR_PUBLICS; ?>/js/Myriad_Pro_400.font.js" type="text/javascript"></script>
 </head>
-<body>
- <div id="taille">
- 		<div class="row-1">
+<body id="page1">
+<div id="taille">
+<div class="tail-bottom">
+<!-- HEADER -->
+	<div id="header">
+		<div class="row-1">
 			<div class="fleft"><a href="films.html"><img src="images/logo" alt="" /></a></div>
 			<div class="fright">
 				<ul>
@@ -29,5 +32,6 @@
 				</ul>
 			</div>
 		</div>
+		
 	<!--End of header -->
 	
