@@ -19,7 +19,7 @@ require_once(DIR_MODELS.DS."mainModels.php");
 
 /* traitement des informations */
 $user = getUser();
-if (isset($_GET["page"]))
+if (isset($_GET["page"]) && $user == null)
 {
 	switch($_GET["page"])
 	{
@@ -31,11 +31,9 @@ if (isset($_GET["page"]))
 			break;
 		case "login":
 			include_once("loginCTRL.php");
-			$layout = "accueil.php";
 			break;
 		case "register":
 			include_once("registerCTRL.php");
-			$layout = "login.php";
 			break;
 	}
 }

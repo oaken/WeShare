@@ -3,9 +3,9 @@
 Fichier qui redirige sur les différentes pages
 Auteur : Ludovic Tresson
 */
-if (isset($_POST["page"]))
+if (isset($_GET["page"]))
 {
-	switch ($_POST["page"])
+	switch ($_GET["page"])
 	{
 		case "accueil.php":
 			$layout = "accueil.php";
