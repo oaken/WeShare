@@ -1,10 +1,8 @@
 	<!--Start of login page-->
-<div class="tail-bottom">
-	<div id="header">
 	<?php if (ENV_TEST == 0){ ?>
 	<hr />
 	<h5 id="status"></h5>
-	<form id="demoForm" method="post" action="#" class="bbq">
+	<form id="demoForm" method="post" action="index.php?page=register" class="bbq">
 		<input type="hidden" id="page" value="connection">
 		<div id="fieldWrapper">
 			<span class="step" id="first">
@@ -89,8 +87,7 @@
 	
 	<?php }
 	elseif (ENV_TEST == 1){ ?>
-	<form id="demoForm" method="post" action="" class="bbq">
-	<input type="hidden" name="page" id="page" value="register">
+	<form id="demoForm" method="post" action="index.php?page=register" class="bbq">
 		<div id="fieldWrapper">
 			<span class="step" id="first">
 				<span class="font_normal_07em_black">Etape 1</span><br />

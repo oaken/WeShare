@@ -1,7 +1,6 @@
 	<!--Start of connection page-->
 	<div id = "connexion">
-		<form action = "" method="post">
-		<input type="hidden" name="page" id="page" value="login">
+		<form action = "index.php?page=login" method="post">
 		<h1>Connexion</h1>
 		<p><label for = "pseudo">Pseudo : </label><input type="text" name="pseudo" id="pseudo" /></p>
 		<p><label for = "pass">Mot de passe : </label><input type="password" name="pass" id="pass" /></p>

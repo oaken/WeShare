@@ -12,22 +12,16 @@ requiert au minimum les fichiers suivants pour fonctionner:
 -login.php
 */
 
-/*
-obtention des configurations et des modèles
-*/
-define("ROOT", "./");
-define("DS", "/");
+/* obtention des configurations et des modèles */
 
 require_once(ROOT."config".DS."config.php");
 require_once(DIR_MODELS.DS."mainModels.php");
 
-/*
-traitement des informations
-*/
+/* traitement des informations */
 $user = getUser();
-if (isset($_POST["page"]))
+if (isset($_GET["page"]))
 {
-	switch($_POST["page"])
+	switch($_GET["page"])
 	{
 		case "login.php":
 			$layout = "login.php";
@@ -53,9 +47,7 @@ else
 {
 	include_once("pageCTRL.php");
 }
-/*
-affichage
-*/
+/* affichage */
 if ($layout == "register.php")
 {
 	include_once(DIR_VIEWS."/smallHeader.php");
