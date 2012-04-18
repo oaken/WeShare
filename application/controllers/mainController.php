@@ -15,8 +15,11 @@ requiert au minimum les fichiers suivants pour fonctionner:
 /*
 obtention des configurations et des modèles
 */
-require_once("./config/config.php");
-require_once(DIR_MODELS."/mainModels.php");
+define("ROOT", "./");
+define("DS", "/");
+
+require_once(ROOT."config".DS."config.php");
+require_once(DIR_MODELS.DS."mainModels.php");
 
 /*
 traitement des informations

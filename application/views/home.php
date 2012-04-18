@@ -1,18 +1,12 @@
 	<!--Start of home page-->
 	<div id = "home">
-		<form action = "" method="post">
-		<input type="hidden" name="page" id="page" value="login.php">
-		<input type="submit" value="CONNEXION" class="bouton_home">
-		</form>
+		<a href="index.php?page=login.php"><h1>CONNEXION</h1></a>
 	</div>
 
 	
 	
 	<div id = "home">
-		<form action = "" method="post">
-		<input type="hidden" name="page" id="page" value="register.php">
-		<input type="submit" value="INSCRIPTION" class="bouton_home">
-		</form>
+		<a href="?page=register.php"><h1>INSCRIPTION</h1></a>
 	</div>
 	
 	<?php echo getcwd(); ?>
