@@ -180,6 +180,7 @@ function register($register_pseudo,
 			$error[3] = 1;
 		}
 	}
+	mysql_close();
 	return ($error);
 }
 
@@ -193,7 +194,8 @@ function connect($pseudo, $pass)
 {
 	$error = 0;
 	
-	$S_query = "SELECT Pseudo, Password FROM Users WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
+	$S_query = "SELECT Pseudo, Password FROM Users 
+					WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
 
 	$S_result = mysql_query($S_query,dbConnect()) or die(mysql_error());
 
@@ -210,34 +212,55 @@ function connect($pseudo, $pass)
 	{   
 		$error = 1;
 	}
+	mysql_close();
 	return $error;
 }
 
 /*
 Fonction permettant de lister les membres
 
-$membres (S): array contenant les pseudo et date d'inscription des membres
+$membres (S): array contenant les pseudo et date d'inscription des membres,
+					retourne -1 si il y a une erreur
+
+auteur : Ludovic Tresson
 */
-function getMember()
+function getMember($userPseudo)
 {
-	$S_query = "SELECT IdUser, Pseudo, RegisterDate FROM Users";
+	/* on cherche a savoir l'id de la personne qui fais la requete 
+		(sert a savoir les liens d'amitié)*/
+	$S_query = ("SELECT IdUser FROM Users WHERE Pseudo='".$userPseudo."'");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
 	{
-		$membres = -1;
+		return 1;
 	}
-	else
+	$S_user = mysql_fetch_assoc($S_result);
+	$idUser = $S_user['IdUser'];
+	
+	$S_query = ("SELECT U.IdUser, U.Pseudo, U.RegisterDate, F.Status 
+				FROM Users AS U 
+				LEFT JOIN Friends AS F ON (U.IdUser = F.IdFriend)
+				WHERE U.IdUser != '".$idUser."'");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
 	{
-		$S_nbRow = mysql_num_rows($S_result);
-		for ($i=0;$i< $S_nbRow;$i++)
-		{
-			$membres[] = mysql_fetch_assoc($S_result);
-			$membres[$i]['RegisterDate'] = formateDate($membres[$i]['RegisterDate']);
-		}
+		return -1;
 	}
+	$S_nbRow = mysql_num_rows($S_result);
+	for ($i=0;$i< $S_nbRow;$i++)
+	{
+		$membres[] = mysql_fetch_assoc($S_result);
+		$membres[$i]['RegisterDate']= formateDate($membres[$i]['RegisterDate']);
+	}
+	mysql_close();
 	return $membres;
 }
 
+/*
+focntion qui transforme la date de yyyy-mm-dd a dd/mm/yyyy-mm-dd
+
+auteur : Ludovic Tresson
+*/
 function formateDate($date)
 {
 	list($year, $month, $day) = explode('-', $date);
@@ -265,4 +288,32 @@ $_SESSION = array();
 
 session_destroy();  
 }
+
+/*
+fonction pour faire une demande d'amis
+
+auteur : Ludovic Tresson
+*/
+function requestFriendship($userPseudo, $newFriend)
+{
+	$S_query = ("SELECT IdUser FROM Users WHERE Pseudo='".$userPseudo."'");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return 1;
+	}
+	$S_user = mysql_fetch_assoc($S_result);
+	var_dump($S_user);
+	
+	
+	$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
+					VALUES ('".$S_user['IdUser']."','".$newFriend."','0')");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return 1;
+	}
+	return 0;
+}
+
 ?>

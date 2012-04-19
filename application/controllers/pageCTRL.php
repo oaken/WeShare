@@ -16,9 +16,10 @@ if (isset($_GET["page"]))
 		case "membres.php":
 			if(isset($_GET['addFriend']) && !empty($_GET['addFriend']))
 			{
-				requestFriendship($_SESSION['User'], $_GET['addFriend'])
+				@session_start();
+				requestFriendship($user, $_GET['addFriend']);
 			}
-			$membres = getMember();
+			$membres = getMember($user);
 			$layout = "membres.php";
 			break;
 		case "deconnection":

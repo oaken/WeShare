@@ -12,9 +12,24 @@
 				<?php echo $key['RegisterDate'] ?>
 			</td>
 			<td>
+			<?php if($key['Status'] == null)
+			{
+			?>
 				<a href='index.php?page=membres.php&addFriend=<?php echo $key['IdUser'] ?>'>
 					<img src='<?php echo DIR_PUBLICS; ?>/images/plusIcon.jpg'>
 				</a>
+			<?php
+			}
+			elseif($key['Status'] != 1)
+			{
+				echo "Demande envoyé";
+			}
+			else
+			{
+				echo "Déjà ami";
+			}
+			?>
+			
 			</td>
 		</tr>
 		<?php
