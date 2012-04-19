@@ -4,7 +4,7 @@ Fonction qui permet de se deconnecter
 
 auteur : Alexandre Arnal.
 */
-function deconnect()
+function disconnect()
 {
 // On appelle la session 
 
