@@ -29,7 +29,7 @@
 					<li><a href="index.php?page=evenements.php"><em><b>Evènements</b></em></a></li>
 					<li><a href="index.php?page=membres.php" class="active"><em><b>Membres</b></em></a></li>
 					<li><a href="index.php?page=profil.php"><em><b>Profil</b></em></a></li>
-					<li><a href="index.php?page=deconnection">Déconnexion</a></em></li>
+					<li><a href="index.php?page=deconnection"><em><b>Déconnexion</b></a></em></li>
 				</ul>
 			</div>
 		</div>
