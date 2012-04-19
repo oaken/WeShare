@@ -59,6 +59,10 @@ else
 {
 	include_once(DIR_VIEWS."/header.php");
 }
+if(isset($layoutAdd))
+{
+	include_once(DIR_VIEWS."/profilHeader.php");
+}
 require_once(DIR_VIEWS."/".$layout);
 require_once(DIR_VIEWS."/footer.php");
 ?>

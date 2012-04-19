@@ -316,4 +316,25 @@ function requestFriendship($userPseudo, $newFriend)
 	return 0;
 }
 
+function getProfil()
+{
+	@session_start();
+	$S_query = ("SELECT * 
+				FROM Users
+				HAVING Pseudo = '".$_SESSION['User']."'");
+				
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return -1;
+	}
+
+	$profil = mysql_fetch_assoc($S_result);
+	$profil['RegisterDate'] = formateDate($profil['RegisterDate']);
+	var_dump($profil);
+
+	mysql_close();
+	return $profil;
+}
+
 ?>
