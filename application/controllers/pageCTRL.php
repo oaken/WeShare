@@ -14,13 +14,21 @@ if (isset($_GET["page"]))
 			include_once("filmCTRL.php");
 			break;
 		case "membres.php":
-			if(isset($_GET['addFriend']) && !empty($_GET['addFriend']))
+			if(isset($_GET['profil']))
 			{
-				@session_start();
-				requestFriendship($user, $_GET['addFriend']);
+				$profil = getProfil($_GET['profil']);
+				$layout = "profil.php";
 			}
-			$membres = getMember($user);
-			$layout = "membres.php";
+			else
+			{
+				if(isset($_GET['addFriend']) && !empty($_GET['addFriend']))
+				{
+					@session_start();
+					requestFriendship($user, $_GET['addFriend']);
+				}
+				$membres = getMember($user);
+				$layout = "membres.php";
+			}
 			break;
 		case "profil.php":
 			include_once("profilCTRL.php");

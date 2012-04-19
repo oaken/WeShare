@@ -7,6 +7,8 @@ if(isset($_GET['action'])){
 	switch ($_GET['action'])
 	{
 		case "profil":
+			@session_start();
+			$user = $_SESSION['User'];
 			$layout="profil.php";
 			$layoutAdd = 0;
 			break;
@@ -32,4 +34,5 @@ else
 	$layout="profil.php";
 	$layoutAdd = 0;
 }
+$profil = getProfil($user);
 ?>

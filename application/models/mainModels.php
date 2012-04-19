@@ -228,19 +228,13 @@ function getMember($userPseudo)
 {
 	/* on cherche a savoir l'id de la personne qui fais la requete 
 		(sert a savoir les liens d'amitié)*/
-	$S_query = ("SELECT IdUser FROM Users WHERE Pseudo='".$userPseudo."'");
-	$S_result = mysql_query($S_query, dbConnect());
-	if (!isset($S_result))
-	{
-		return 1;
-	}
-	$S_user = mysql_fetch_assoc($S_result);
-	$idUser = $S_user['IdUser'];
+
+	$userId = getId($userPseudo);
 	
 	$S_query = ("SELECT U.IdUser, U.Pseudo, U.RegisterDate, F.Status 
 				FROM Users AS U 
 				LEFT JOIN Friends AS F ON (U.IdUser = F.IdFriend)
-				WHERE U.IdUser != '".$idUser."'");
+				WHERE U.IdUser != '".$userId."'");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
 	{
@@ -296,18 +290,11 @@ auteur : Ludovic Tresson
 */
 function requestFriendship($userPseudo, $newFriend)
 {
-	$S_query = ("SELECT IdUser FROM Users WHERE Pseudo='".$userPseudo."'");
-	$S_result = mysql_query($S_query, dbConnect());
-	if (!isset($S_result))
-	{
-		return 1;
-	}
-	$S_user = mysql_fetch_assoc($S_result);
-	var_dump($S_user);
+	$userId = getId($userPseudo);
 	
 	
 	$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
-					VALUES ('".$S_user['IdUser']."','".$newFriend."','0')");
+					VALUES ('".$userId."','".$newFriend."','0')");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
 	{
@@ -316,12 +303,11 @@ function requestFriendship($userPseudo, $newFriend)
 	return 0;
 }
 
-function getProfil()
+function getProfil($user)
 {
-	@session_start();
 	$S_query = ("SELECT * 
 				FROM Users
-				HAVING Pseudo = '".$_SESSION['User']."'");
+				HAVING Pseudo = '".$user."'");
 				
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
@@ -331,10 +317,23 @@ function getProfil()
 
 	$profil = mysql_fetch_assoc($S_result);
 	$profil['RegisterDate'] = formateDate($profil['RegisterDate']);
-	var_dump($profil);
+	$profil['BornDate'] = formateDate($profil['BornDate']);
 
 	mysql_close();
 	return $profil;
 }
 
+
+function getId($pseudo)
+{
+	$S_query = ("SELECT * FROM Users HAVING Pseudo = '".$pseudo."'");
+				
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return -1;
+	}
+	$S_user = mysql_fetch_assoc($S_result);
+	return $S_user['IdUser'];
+}
 ?>

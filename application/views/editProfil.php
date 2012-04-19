@@ -1,5 +1,5 @@
 <div class="indent2">
-		<form id="edit-profile-form" action=""> <br>
+		<form id="edit-profile-form" action="">
 			<h3>Modifier votre profil</h3>	
 				<fieldset>
 					<div class="field"><label>Nom :</label><input type="text" value=""/></div><br />

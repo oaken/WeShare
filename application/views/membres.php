@@ -6,7 +6,7 @@
 	{ ?>
 		<tr>
 			<td>
-				<?php echo $key['Pseudo'] ?>
+				<a href='index.php?page=membres.php&profil=<?php echo $key['Pseudo']; ?>'><?php echo $key['Pseudo'] ?></a>
 			</td>
 			<td>
 				<?php echo $key['RegisterDate'] ?>
