@@ -17,6 +17,10 @@ if (isset($_GET["page"]))
 			$membres = getMember();
 			$layout = "membres.php";
 			break;
+		case "deconnection":
+			disconnect();
+			$layout = "home.php";
+			break;
 		default:
 			$layout = "erreur.php";
 		

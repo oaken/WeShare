@@ -24,6 +24,7 @@ if (isset($_GET["page"]) && $user == null)
 	switch($_GET["page"])
 	{
 		case "login.php":
+			$errorConnect = 0;
 			$layout = "login.php";
 			break;
 		case "register.php":
@@ -34,6 +35,10 @@ if (isset($_GET["page"]) && $user == null)
 			break;
 		case "register":
 			include_once("registerCTRL.php");
+			break;
+		case "deconnection":
+			disconnect();
+			$layout = "home.php";
 			break;
 	}
 }
