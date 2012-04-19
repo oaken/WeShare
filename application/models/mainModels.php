@@ -193,17 +193,17 @@ function connect($pseudo, $pass)
 {
 	$error = 0;
 	
-	$S_requete = "SELECT Pseudo,Password FROM Users WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
+	$S_query = "SELECT Pseudo, Password FROM Users WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
 
-	$S_req_exec = mysql_query($S_requete,dbConnect()) or die(mysql_error());
+	$S_result = mysql_query($S_query,dbConnect()) or die(mysql_error());
 
 	// Création du tableau associatif du résultat
-	$S_resultat = mysql_fetch_assoc($S_req_exec);
+	$S_info = mysql_fetch_assoc($S_result);
 
-	// Les valeurs (si elles existent) sont retournées dans le tableau $resultat;
-	if (isset($S_resultat['Pseudo'],$S_resultat['Password']))  
+	// Les valeurs (si elles existent) sont retournées dans le tableau $info;
+	if (isset($S_info['Pseudo']) && isset($S_info['Password'])) 
 	{
-		session_start();
+		@session_start();
 		$_SESSION['User'] = $pseudo;
 	}
 	else
@@ -244,5 +244,25 @@ function formateDate($date)
 	$newDate = $day."/".$month."/".$year;
 	
 	return $newDate;
+}
+
+/* 
+Fonction qui permet de se deconnecter
+
+auteur : Alexandre Arnal.
+*/
+function disconnect()
+{
+// On appelle la session 
+
+@session_start(); 
+ 
+// On écrase le tableau de session 
+
+$_SESSION = array(); 
+ 
+// On détruit la session 
+
+session_destroy();  
 }
 ?>
