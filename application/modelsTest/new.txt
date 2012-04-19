@@ -1,0 +1,1 @@
+UPDATE Users SET $password.$Passord.$mail.$Mail.$lastName.$LastName.$firstName.$FirstName.$registerDate.$RegisterDate.$phone.$Phone.$address.$Address.$city.$City.$country.$Country WHERE IdUser=$IdUser

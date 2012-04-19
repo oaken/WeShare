@@ -14,6 +14,10 @@ if (isset($_GET["page"]))
 			include_once("filmCTRL.php");
 			break;
 		case "membres.php":
+			if(isset($_GET['addFriend']) && !empty($_GET['addFriend']))
+			{
+				requestFriendship($_SESSION['User'], $_GET['addFriend'])
+			}
 			$membres = getMember();
 			$layout = "membres.php";
 			break;
