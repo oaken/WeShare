@@ -56,6 +56,4 @@ else
 }
 require_once(DIR_VIEWS."/".$layout);
 require_once(DIR_VIEWS."/footer.php");
-
-//$_SERVER['SCRIPT_NAME']}?news_id={$_POST['news_id']}
 ?>
