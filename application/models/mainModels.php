@@ -62,77 +62,122 @@ function dbConnect ()
 
 /* 
 La fonction register sert à enregistrer l'utilisateur dans la base de donnée.
-$pseudo (E): string
-$password (E): string
-$password (E): string
-$error (S): int : 
-1 -> pseudo trop long ;
-2 -> password trop long;
-3 -> $mail trop long;
-4 -> erreur requête invalide/problème avec la BDD;
-0 -> OK 
+$register_pseudo,
+$register_password, 
+$register_retypePassword,
+$register_email,
+$register_lastName,
+$register_firstName,
+$register_day,
+$register_month,
+$register_year,
+$register_address,
+$register_city,
+$register_country,
+$register_phoneNumber
+
+$error[] (S): array 
+[0|1|2|3]=>0	: OK 
+  [0|1|2]=>1	: trop long ;
+      [3]=>1	: erreur requête invalide/problème avec la BDD;
+    [0|2]=>2	: pseudo/mail déjà utilisé;
+      [1]=>2	: mot de pass ne correspondent pas;
+
 
 Auteur: Vincent Ricard
-Modifié par: Ludovic Tresson(correction indentation/ maj sprintf et verifs)
+Réecriture complète par Ludovic Tresson
 */
-function register($pseudo, $password, $retypePassword, $mail, $lastName, $firstName, $day, $mounth, $year, $phone, $address, $city, $country)
+function register($register_pseudo,
+		$register_password, 
+		$register_retypePassword,
+		$register_email,
+		$register_lastName,
+		$register_firstName,
+		$register_day,
+		$register_month,
+		$register_year,
+		$register_address,
+		$register_city,
+		$register_country,
+		$register_phoneNumber)
 {
-	$error = 0;
-	$errorPs = 0;
-	$errorPa = 0;
-	$errorMa = 0;
+	$error[0] = 0;
+	$error[1] = 0;
+	$error[2] = 0;
+	$error[3] = 0;
 	
-	if (count($pseudo) > 33)
+	//verif pseudo
+	$S_result = mysql_query("SELECT Pseudo FROM Users
+						WHERE Pseudo='" . $register_pseudo . "'", dbConnect());
+	$S_isPseudoInUse = mysql_num_rows($S_result);
+	if (!isset($result))
 	{
-		$errorPs = 1;
-		$error++;
-	}
-	else
-	{
-		$S_query = "SELECT Pseudo FROM Users WHERE Pseudo=\"".$pseudo."\"";
-		if(mysql_num_rows(mysql_query($S_query, dbConnect())) != 0)
-		{
-			$errorPs = 2;
-			$error++;
-		}
+		$error[3] = 1;
 	}
 	
-	if (count($password) > 65)
+	if (count($register_pseudo) > 33)
 	{
-		$errorPa = 1;
-		$error++;
+		$error[0] = 1;
 	}
-	elseif (count($password) < 6)
+	elseif ($S_isPseudoInUse == 1)
 	{
-		$errorPa = 2;
-		$error++;
-	}
-	else
-	{
-		if($password != $retypePassword)
-		{
-			$errorPa = 3;
-			$error++;
-		}
-	}
-	if (count($mail) > 255)
-	{
-		$errorMa = 1;
-		$error++;
+		$error[0] = 2;
 	}
 	
-	if($error == 0)
+	//verif pass
+	if (count($register_password) > 65)
+	{
+		$error[1] = 1;
+	}
+	elseif($register_password != $register_retypePassword)
+	{
+		$error[1] = 2;
+	}
+	
+	//verif mail
+	$S_result = mysql_query("SELECT Mail FROM Users
+						WHERE Mail='" . $register_email . "'", dbConnect());
+	$S_isMailInUse = mysql_num_rows($S_result);
+	if (!isset($result))
+	{
+		$error[3] = 1;
+	}
+	
+	if (count($register_email) > 255)
+	{
+		$error[2] = 1;
+	}
+	elseif($S_isMailInUse == 1)
+	{
+		$error[2] = 2;
+	}
+	
+	
+	$register_bornDate = '';
+	$register_bornDate = $register_year."-".$register_month."-".$register_day;
+	//enregistrement dans la bdd
+	if($error[0] == 0 && $error[1] == 0 && $error[2] == 0)
 	{
 		$S_query = sprintf("INSERT INTO Users
 						(RegisterDate, Pseudo, Password, Mail, LastName,
 							FirstName, BornDate, Address, City, Country, Phone)
-						VALUES ('%s', '%s', '%s', '%s')", 
-						date("y-m-d"), trim($pseudo), trim($password), $mail, $lastName,
-							$firstName, $bornDate, $address,$city, $country, $phone);
-		$S_result = mysql_query($query, dbConnect());
-		if (empty($S_result))
+						VALUES ('%s', '%s', '%s', '%s', '%s',
+								'%s', '%s', '%s', '%s', '%s', '%s')", 
+						date("y-m-d"),
+						$register_pseudo,
+						$register_password,
+						$register_email,
+						$register_lastName,
+						$register_firstName,
+						$register_bornDate,
+						$register_address,
+						$register_city,
+						$register_country,
+-						$register_phoneNumber);
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
 		{
-			$error++;
+			$error[3] = 1;
 		}
 	}
 	return ($error);
@@ -165,5 +210,39 @@ function connect($pseudo, $pass)
 	{   
 		$error = 1;
 	}
+	return $error;
+}
+
+/*
+Fonction permettant de lister les membres
+
+$membres (S): array contenant les pseudo et date d'inscription des membres
+*/
+function getMember()
+{
+	$S_query = "SELECT IdUser, Pseudo, RegisterDate FROM Users";
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		$membres = -1;
+	}
+	else
+	{
+		$S_nbRow = mysql_num_rows($S_result);
+		for ($i=0;$i< $S_nbRow;$i++)
+		{
+			$membres[] = mysql_fetch_assoc($S_result);
+			$membres[$i]['RegisterDate'] = formateDate($membres[$i]['RegisterDate']);
+		}
+	}
+	return $membres;
+}
+
+function formateDate($date)
+{
+	list($year, $month, $day) = explode('-', $date);
+	$newDate = $day."/".$month."/".$year;
+	
+	return $newDate;
 }
 ?>

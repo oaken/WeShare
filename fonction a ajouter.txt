@@ -1,2 +1,4 @@
 connect_bdd (a renommer dbconnect)
 getUser
+getMember
+formateDate

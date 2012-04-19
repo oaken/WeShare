@@ -7,6 +7,6 @@ define("DB_HOST", "localhost");
 define("DIR_CONTROLS",".".DS."application".DS."controllers");
 define("DIR_MODELS",".".DS."application".DS."models");
 define("DIR_VIEWS",".".DS."application".DS."views");
-define("DIR_PUBLICS",".".DS."public");
+define("DIR_PUBLICS",ADDRESS.DS."public");
 define("ENV_TEST","1")
 ?>

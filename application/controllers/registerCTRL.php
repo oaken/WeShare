@@ -108,7 +108,11 @@ if (isset($_POST["pseudo"]) && !empty($_POST["pseudo"]) &&
 								$register_country);
 	if ($error_register == 0)
 	{
-		$layout = "connection.php";
+		$layout = "login.php";
+	}
+	else
+	{
+		$layout = "register.php";
 	}
 }
 else
