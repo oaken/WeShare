@@ -110,9 +110,10 @@ function register($register_pseudo,
 	$S_result = mysql_query("SELECT Pseudo FROM Users
 						WHERE Pseudo='" . $register_pseudo . "'", dbConnect());
 	$S_isPseudoInUse = mysql_num_rows($S_result);
-	if (!isset($result))
+	if (!isset($S_result))
 	{
 		$error[3] = 1;
+		echo "coucou1";
 	}
 	
 	if (count($register_pseudo) > 33)
@@ -138,9 +139,10 @@ function register($register_pseudo,
 	$S_result = mysql_query("SELECT Mail FROM Users
 						WHERE Mail='" . $register_email . "'", dbConnect());
 	$S_isMailInUse = mysql_num_rows($S_result);
-	if (!isset($result))
+	if (!isset($S_result))
 	{
 		$error[3] = 1;
+		echo "coucou2";
 	}
 	
 	if (count($register_email) > 255)
@@ -178,6 +180,7 @@ function register($register_pseudo,
 		if (!isset($S_result))
 		{
 			$error[3] = 1;
+		echo "coucou3";
 		}
 	}
 	mysql_close();
@@ -335,5 +338,48 @@ function getId($pseudo)
 	}
 	$S_user = mysql_fetch_assoc($S_result);
 	return $S_user['IdUser'];
+}
+
+function getFriends($idUser)
+{
+	$S_query = ("SELECT Pseudo,IdUser FROM Users 
+					WHERE IdUser = 
+						(SELECT IdFriend 
+							FROM Friends 
+								WHERE IdUser ='".$idUser."' AND Status = 1)");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result) || $S_result == false)
+	{
+		return -1;
+	}
+	$S_friend[] = mysql_fetch_assoc($S_result);
+	
+	if($S_friend[0] == false)
+	{
+		return -1;
+	}
+	return $S_friend;
+}
+function getFriendshipRequest($idUser)
+{
+	$S_query = ("SELECT Pseudo,IdUser FROM Users 
+					WHERE IdUser = 
+						(SELECT IdFriend 
+							FROM Friends 
+								WHERE IdFriend ='".$idUser."' AND Status = 0)");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result) || $S_result == false)
+	{
+		return -1;
+	}
+	$S_friendRequest[] = mysql_fetch_assoc($S_result);
+
+	//si il n'y a pas de résultat on sort prématurément en retournant -1
+	if($S_friendRequest[0] == false)
+	{
+		return -1;
+	}
+	
+	return $S_friendRequest;
 }
 ?>

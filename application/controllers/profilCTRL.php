@@ -17,6 +17,9 @@ if(isset($_GET['action'])){
 			$layoutAdd = 1;
 			break;
 		case "amis":
+			$userId = getId($user);
+			$friend = getFriends($userId);
+			$friendRequest = getFriendshipRequest($userId);
 			$layout="amisProfil.php";
 			$layoutAdd = 2;
 			break;

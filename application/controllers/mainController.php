@@ -34,6 +34,7 @@ if (isset($_GET["page"]) && $user == null)
 			include_once("loginCTRL.php");
 			break;
 		case "register":
+			$errorConnect = 0;
 			include_once("registerCTRL.php");
 			break;
 		case "deconnection":
