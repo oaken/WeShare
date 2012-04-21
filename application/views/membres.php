@@ -20,11 +20,11 @@
 				</a>
 			<?php
 			}
-			elseif($key['Status'] != 1)
+			elseif($key['Status'] == 0)
 			{
 				echo "Demande envoyé";
 			}
-			else
+			elseif($key['Status'] == 1)
 			{
 				echo "Déjà ami";
 			}

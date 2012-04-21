@@ -236,7 +236,7 @@ function getMember($userPseudo)
 	
 	$S_query = ("SELECT U.IdUser, U.Pseudo, U.RegisterDate, F.Status 
 				FROM Users AS U 
-				LEFT JOIN Friends AS F ON (U.IdUser = F.IdFriend)
+				LEFT JOIN Friends AS F ON (U.IdUser = F.IdFriend AND F.IdUser = '".$userId."')
 				WHERE U.IdUser != '".$userId."'");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
@@ -289,19 +289,42 @@ session_destroy();
 /*
 fonction pour faire une demande d'amis
 
+retourne :	0 si ok
+			1 si pb de connection bdd
+			2 si déjà existant
 auteur : Ludovic Tresson
 */
 function requestFriendship($userPseudo, $newFriend)
 {
 	$userId = getId($userPseudo);
 	
-	
-	$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
-					VALUES ('".$userId."','".$newFriend."','0')");
+	//on cherche si l'amis n'est pas déjà rentrer
+	$S_query = ("SELECT U.IdUser, F.Status
+			FROM Users AS U
+			LEFT JOIN Friends AS F ON (F.IdFriend = '".$newFriend."' AND F.IdUser = '".$userId."')
+			WHERE U.IdUser = '".$userId."'");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
 	{
 		return 1;
+	}
+	$S_exist[] = mysql_fetch_assoc($S_result);
+	
+	//si il existe deja alors $S_exist[0] existe 
+							//mais $S_exist[0]['Status'] n'existe pas
+	if((isset($S_exist[0]) && $S_exist[0]['Status'] == null))
+	{
+		$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
+						VALUES ('".$userId."','".$newFriend."','0')");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		return 2;
 	}
 	return 0;
 }
@@ -360,6 +383,7 @@ function getFriends($idUser)
 	}
 	return $S_friend;
 }
+
 function getFriendshipRequest($idUser)
 {
 	$S_query = ("SELECT Pseudo,IdUser FROM Users 
@@ -382,4 +406,12 @@ function getFriendshipRequest($idUser)
 	
 	return $S_friendRequest;
 }
+/*
+
+$type (E) : type de la requete, 0 = tout, 1 = personne, 2 = film
+*/
+function searchData($type, $recherche)
+{
+}
+
 ?>

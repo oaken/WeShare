@@ -14,24 +14,25 @@
 	}
 	else
 	{
-		echo "Vous n'avez pas encore d'amis<br /><br /><br /><br />\n";
+		echo "Vous n'avez pas encore d'amis\n";
 	}
 	?>
+	<br /><br /><br /><br />
 	<h3>Mes demandes d'amis</h3>	
-	<p>
-		Vous avez une requête d'ami de la part de ces personnes :
-	</p>
 	<?php
 	if($friendRequest != -1)
 	{
+	echo "	<p>
+				Vous avez une requête d'ami de la part de ces personnes :
+			</p>";
 		foreach($friendRequest as $key2)
 		{
-			echo $key2['Pseudo'] . "<a href='index.php?page=profil.php&action=amis&add=" .
-			$key2['IdUser'] . "'><em>Cliquez ici pour accepter cette invitation  </em></a>
+			echo $key2['Pseudo'] . "  <a href='index.php?page=profil.php&action=amis&add=" .
+			$key2['IdUser'] . "'><em>Accepter</em></a>    
 			<a href='index.php?page=profil.php&action=amis&no=" .
-			$key2['IdUser'] . "'><em>Cliquez ici pour refuser cette invitation</em></a><br />
+			$key2['IdUser'] . "'><em>Refuser</em></a>    
 			<a href='index.php?page=profil.php&action=amis&ignore=" .
-			$key2['IdUser'] . "'><em>Cliquez ici pour ignorer cette invitation</em></a><br />";
+			$key2['IdUser'] . "'><em>Ignorer</em></a>  <br />";
 		}
 	}
 	else
