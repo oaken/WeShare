@@ -388,7 +388,7 @@ function getFriendshipRequest($idUser)
 {
 	$S_query = ("SELECT Pseudo,IdUser FROM Users 
 					WHERE IdUser = 
-						(SELECT IdFriend 
+						(SELECT IdUser 
 							FROM Friends 
 								WHERE IdFriend ='".$idUser."' AND Status = 0)");
 	$S_result = mysql_query($S_query, dbConnect());
@@ -414,4 +414,38 @@ function searchData($type, $recherche)
 {
 }
 
+function replyToFriendship($userId, $friendId, $status)
+{
+	$S_query = ("UPDATE Friends
+				SET Status = '".$status."'
+				WHERE IdUser ='".$friendId."' AND IdFriend = '".$userId."'");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return 1;
+	}
+	
+	//ajout d'une autre entré pour que l'on soit amis des deux cotés
+	if($status == 1)
+	{
+		$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
+						VALUES ('".$userId."','".$friendId."','1')");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
+	//suppression d'un ami
+	if($status == 0)
+	{
+		$S_query = ("DELETE FROM Friends
+					WHERE IdUser ='".$userId."' AND IdFriend = '".$friendId."'");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
+}
 ?>

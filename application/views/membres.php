@@ -12,7 +12,13 @@
 				<?php echo $key['RegisterDate'] ?>
 			</td>
 			<td>
-			<?php if($key['Status'] == null)
+			<?php 	/* status : null : pas d'entré
+								0 : demande envoyé
+								1 : demande accepté
+								2 : demande refusé
+								3 : demande ignoré
+					*/
+			if($key['Status'] == null)
 			{
 			?>
 				<a href='index.php?page=membres.php&addFriend=<?php echo $key['IdUser'] ?>'>
@@ -20,7 +26,7 @@
 				</a>
 			<?php
 			}
-			elseif($key['Status'] == 0)
+			elseif($key['Status'] == 0 || $key['Status'] == 2 || $key['Status'] == 3)
 			{
 				echo "Demande envoyé";
 			}

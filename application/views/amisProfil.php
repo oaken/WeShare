@@ -5,12 +5,33 @@
 	{
 	echo "	<p>
 				Vous êtes actuellement amis avec les personnes suivantes :
-			</p>";
+			</p>
+			<table>
+			<tr>
+				<th>Pseudo</th>
+				<th width=150px>
+					<center>
+						Action
+					</center>
+				</th>
+			</tr>";
 		foreach($friend as $key)
 		{
-			echo $key['Pseudo'] . "<a href='index.php?page=profil.php&action=amis&suppr=" .
-			$key['IdUser'] . "'><em>Cliquez ici pour supprimer cet ami</em></a><br />";
+			echo "<tr>
+			<td  class='TableAmisProfil'>
+				<center>
+				<a href='index.php?page=membres.php&profil=".$key['Pseudo']."'>".$key['Pseudo']."</a>
+				</center
+			</td>
+			<td>
+				<center>
+				<a href='index.php?page=profil.php&action=amis&suppr=" .
+				$key['IdUser'] . "'><em>Supprimer</em></a><br />
+				</center
+			</td>
+			</tr>";
 		}
+		echo "</table>";
 	}
 	else
 	{
@@ -27,10 +48,10 @@
 			</p>";
 		foreach($friendRequest as $key2)
 		{
-			echo $key2['Pseudo'] . "  <a href='index.php?page=profil.php&action=amis&add=" .
-			$key2['IdUser'] . "'><em>Accepter</em></a>    
+			echo $key2['Pseudo'] . "&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.php?page=profil.php&action=amis&add=" .
+			$key2['IdUser'] . "'><em>Accepter</em></a>&nbsp;&nbsp;
 			<a href='index.php?page=profil.php&action=amis&no=" .
-			$key2['IdUser'] . "'><em>Refuser</em></a>    
+			$key2['IdUser'] . "'><em>Refuser</em></a>&nbsp;&nbsp;
 			<a href='index.php?page=profil.php&action=amis&ignore=" .
 			$key2['IdUser'] . "'><em>Ignorer</em></a>  <br />";
 		}

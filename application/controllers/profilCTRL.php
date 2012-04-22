@@ -19,17 +19,21 @@ if(isset($_GET['action'])){
 		case "amis":
 			$userId = getId($user);
 			//gestion des ajouts d'amis
+			if(isset($_GET['suppr']) && !empty($_GET['suppr']))
+			{
+				replyToFriendship($userId, $_GET['suppr'], 0);
+			}
 			if(isset($_GET['add']) && !empty($_GET['add']))
 			{
 				replyToFriendship($userId, $_GET['add'], 1);
 			}
 			if((isset($_GET['no']) && !empty($_GET['no'])))
 			{
-				replyToFriendship($userId, $_GET['no'], 0);
+				replyToFriendship($userId, $_GET['no'], 2);
 			}
 			if((isset($_GET['ignore']) && !empty($_GET['ignore'])))
 			{
-				replyToFriendship($userId, $_GET['ignore'], 0);
+				replyToFriendship($userId, $_GET['ignore'], 3);
 			}
 			
 			$friend = getFriends($userId);
