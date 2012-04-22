@@ -37,6 +37,9 @@ if (isset($_GET["page"]) && $user == null)
 			$errorConnect = 0;
 			include_once("registerCTRL.php");
 			break;
+		case "home.php":
+			$layout = "home.php";
+			break;
 		case "deconnection":
 			disconnect();
 			$layout = "home.php";
@@ -52,7 +55,7 @@ else
 	include_once("pageCTRL.php");
 }
 /* affichage */
-if ($layout == "register.php")
+if ($layout == "register.php" || $layout == "login.php" || $layout == "home.php")
 {
 	include_once(DIR_VIEWS."/smallHeader.php");
 }
