@@ -1,5 +1,5 @@
 <div class="indent2">
-		<form id="edit-profile-form" action=""> <br>
+		<form id="edit-profile-form" action="">
 			<h3>Modifier votre profil</h3>	
 				<fieldset>
 					<div class="field"><label>Nom :</label><input type="text" value=""/></div><br />
@@ -7,13 +7,13 @@
 					<!--<div class="field"><label>Date de Naissace:</label><input type="text" value=""/></div><br />-->
 					<div class="field"><label>Date de Naissace:</label>
 						<select name="Jour">
-							<option value="Jour"><?php aff_days();?></option>
+							<option value="Jour"><?php echo('16');?></option>
 						</select>
 						<select name="Mois">
-							<option value="Mois"><?php aff_months();?></option>
+							<option value="Mois"><?php echo('03');?></option>
 						</select>
 						<select name="Année">
-							<option value="Année"><?php aff_years();?></option>
+							<option value="Année"><?php echo('1990');?></option>
 						</select>
 					</div><br />
 					<div class="field"><label>Adresse Postale :</label><input type="text" value=""/></div><br />

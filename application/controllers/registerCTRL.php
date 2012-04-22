@@ -106,7 +106,8 @@ if (isset($_POST["pseudo"]) && !empty($_POST["pseudo"]) &&
 								$register_address,
 								$register_city,
 								$register_country);
-	if ($error_register == 0)
+	var_dump($error_register);
+	if ($error_register[0] == 0 && $error_register[1] == 0 && $error_register[2] == 0 && $error_register[3] == 0)
 	{
 		$layout = "login.php";
 	}

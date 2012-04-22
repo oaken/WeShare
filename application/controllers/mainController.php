@@ -34,6 +34,7 @@ if (isset($_GET["page"]) && $user == null)
 			include_once("loginCTRL.php");
 			break;
 		case "register":
+			$errorConnect = 0;
 			include_once("registerCTRL.php");
 			break;
 		case "deconnection":
@@ -58,6 +59,10 @@ if ($layout == "register.php")
 else
 {
 	include_once(DIR_VIEWS."/header.php");
+}
+if(isset($layoutAdd))
+{
+	include_once(DIR_VIEWS."/profilHeader.php");
 }
 require_once(DIR_VIEWS."/".$layout);
 require_once(DIR_VIEWS."/footer.php");

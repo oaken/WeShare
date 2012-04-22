@@ -6,15 +6,36 @@
 	{ ?>
 		<tr>
 			<td>
-				<?php echo $key['Pseudo'] ?>
+				<a href='index.php?page=membres.php&profil=<?php echo $key['Pseudo']; ?>'><?php echo $key['Pseudo'] ?></a>
 			</td>
 			<td>
 				<?php echo $key['RegisterDate'] ?>
 			</td>
 			<td>
+			<?php 	/* status : null : pas d'entré
+								0 : demande envoyé
+								1 : demande accepté
+								2 : demande refusé
+								3 : demande ignoré
+					*/
+			if($key['Status'] == null)
+			{
+			?>
 				<a href='index.php?page=membres.php&addFriend=<?php echo $key['IdUser'] ?>'>
 					<img src='<?php echo DIR_PUBLICS; ?>/images/plusIcon.jpg'>
 				</a>
+			<?php
+			}
+			elseif($key['Status'] == 0 || $key['Status'] == 2 || $key['Status'] == 3)
+			{
+				echo "Demande envoyé";
+			}
+			elseif($key['Status'] == 1)
+			{
+				echo "Déjà ami";
+			}
+			?>
+			
 			</td>
 		</tr>
 		<?php

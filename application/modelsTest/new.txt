@@ -1,0 +1,6 @@
+$password = "Password =";
+$Password = " ".$varPassword.", ";
+$mail = "";
+$Mail = "";
+
+UPDATE Users SET $password.$Password.$mail.$Mail.$lastName.$LastName.$firstName.$FirstName.$registerDate.$RegisterDate.$phone.$Phone.$address.$Address.$city.$City.$country.$Country WHERE IdUser=$IdUser

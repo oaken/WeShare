@@ -110,9 +110,10 @@ function register($register_pseudo,
 	$S_result = mysql_query("SELECT Pseudo FROM Users
 						WHERE Pseudo='" . $register_pseudo . "'", dbConnect());
 	$S_isPseudoInUse = mysql_num_rows($S_result);
-	if (!isset($result))
+	if (!isset($S_result))
 	{
 		$error[3] = 1;
+		echo "coucou1";
 	}
 	
 	if (count($register_pseudo) > 33)
@@ -138,9 +139,10 @@ function register($register_pseudo,
 	$S_result = mysql_query("SELECT Mail FROM Users
 						WHERE Mail='" . $register_email . "'", dbConnect());
 	$S_isMailInUse = mysql_num_rows($S_result);
-	if (!isset($result))
+	if (!isset($S_result))
 	{
 		$error[3] = 1;
+		echo "coucou2";
 	}
 	
 	if (count($register_email) > 255)
@@ -178,8 +180,10 @@ function register($register_pseudo,
 		if (!isset($S_result))
 		{
 			$error[3] = 1;
+		echo "coucou3";
 		}
 	}
+	mysql_close();
 	return ($error);
 }
 
@@ -193,7 +197,8 @@ function connect($pseudo, $pass)
 {
 	$error = 0;
 	
-	$S_query = "SELECT Pseudo, Password FROM Users WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
+	$S_query = "SELECT Pseudo, Password FROM Users 
+					WHERE Pseudo = '".$pseudo."' AND Password = '".$pass."'";  
 
 	$S_result = mysql_query($S_query,dbConnect()) or die(mysql_error());
 
@@ -210,34 +215,49 @@ function connect($pseudo, $pass)
 	{   
 		$error = 1;
 	}
+	mysql_close();
 	return $error;
 }
 
 /*
 Fonction permettant de lister les membres
 
-$membres (S): array contenant les pseudo et date d'inscription des membres
+$membres (S): array contenant les pseudo et date d'inscription des membres,
+					retourne -1 si il y a une erreur
+
+auteur : Ludovic Tresson
 */
-function getMember()
+function getMember($userPseudo)
 {
-	$S_query = "SELECT IdUser, Pseudo, RegisterDate FROM Users";
+	/* on cherche a savoir l'id de la personne qui fais la requete 
+		(sert a savoir les liens d'amitié)*/
+
+	$userId = getId($userPseudo);
+	
+	$S_query = ("SELECT U.IdUser, U.Pseudo, U.RegisterDate, F.Status 
+				FROM Users AS U 
+				LEFT JOIN Friends AS F ON (U.IdUser = F.IdFriend AND F.IdUser = '".$userId."')
+				WHERE U.IdUser != '".$userId."'");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result))
 	{
-		$membres = -1;
+		return -1;
 	}
-	else
+	$S_nbRow = mysql_num_rows($S_result);
+	for ($i=0;$i< $S_nbRow;$i++)
 	{
-		$S_nbRow = mysql_num_rows($S_result);
-		for ($i=0;$i< $S_nbRow;$i++)
-		{
-			$membres[] = mysql_fetch_assoc($S_result);
-			$membres[$i]['RegisterDate'] = formateDate($membres[$i]['RegisterDate']);
-		}
+		$membres[] = mysql_fetch_assoc($S_result);
+		$membres[$i]['RegisterDate']= formateDate($membres[$i]['RegisterDate']);
 	}
+	mysql_close();
 	return $membres;
 }
 
+/*
+focntion qui transforme la date de yyyy-mm-dd a dd/mm/yyyy-mm-dd
+
+auteur : Ludovic Tresson
+*/
 function formateDate($date)
 {
 	list($year, $month, $day) = explode('-', $date);
@@ -264,5 +284,168 @@ $_SESSION = array();
 // On détruit la session 
 
 session_destroy();  
+}
+
+/*
+fonction pour faire une demande d'amis
+
+retourne :	0 si ok
+			1 si pb de connection bdd
+			2 si déjà existant
+auteur : Ludovic Tresson
+*/
+function requestFriendship($userPseudo, $newFriend)
+{
+	$userId = getId($userPseudo);
+	
+	//on cherche si l'amis n'est pas déjà rentrer
+	$S_query = ("SELECT U.IdUser, F.Status
+			FROM Users AS U
+			LEFT JOIN Friends AS F ON (F.IdFriend = '".$newFriend."' AND F.IdUser = '".$userId."')
+			WHERE U.IdUser = '".$userId."'");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return 1;
+	}
+	$S_exist[] = mysql_fetch_assoc($S_result);
+	
+	//si il existe deja alors $S_exist[0] existe 
+							//mais $S_exist[0]['Status'] n'existe pas
+	if((isset($S_exist[0]) && $S_exist[0]['Status'] == null))
+	{
+		$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
+						VALUES ('".$userId."','".$newFriend."','0')");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		return 2;
+	}
+	return 0;
+}
+
+function getProfil($user)
+{
+	$S_query = ("SELECT * 
+				FROM Users
+				HAVING Pseudo = '".$user."'");
+				
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return -1;
+	}
+
+	$profil = mysql_fetch_assoc($S_result);
+	$profil['RegisterDate'] = formateDate($profil['RegisterDate']);
+	$profil['BornDate'] = formateDate($profil['BornDate']);
+
+	mysql_close();
+	return $profil;
+}
+
+
+function getId($pseudo)
+{
+	$S_query = ("SELECT * FROM Users HAVING Pseudo = '".$pseudo."'");
+				
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return -1;
+	}
+	$S_user = mysql_fetch_assoc($S_result);
+	return $S_user['IdUser'];
+}
+
+function getFriends($idUser)
+{
+	$S_query = ("SELECT Pseudo,IdUser FROM Users 
+					WHERE IdUser = 
+						(SELECT IdFriend 
+							FROM Friends 
+								WHERE IdUser ='".$idUser."' AND Status = 1)");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result) || $S_result == false)
+	{
+		return -1;
+	}
+	$S_friend[] = mysql_fetch_assoc($S_result);
+	
+	if($S_friend[0] == false)
+	{
+		return -1;
+	}
+	return $S_friend;
+}
+
+function getFriendshipRequest($idUser)
+{
+	$S_query = ("SELECT Pseudo,IdUser FROM Users 
+					WHERE IdUser = 
+						(SELECT IdUser 
+							FROM Friends 
+								WHERE IdFriend ='".$idUser."' AND Status = 0)");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result) || $S_result == false)
+	{
+		return -1;
+	}
+	$S_friendRequest[] = mysql_fetch_assoc($S_result);
+
+	//si il n'y a pas de résultat on sort prématurément en retournant -1
+	if($S_friendRequest[0] == false)
+	{
+		return -1;
+	}
+	
+	return $S_friendRequest;
+}
+/*
+
+$type (E) : type de la requete, 0 = tout, 1 = personne, 2 = film
+*/
+function searchData($type, $recherche)
+{
+}
+
+function replyToFriendship($userId, $friendId, $status)
+{
+	$S_query = ("UPDATE Friends
+				SET Status = '".$status."'
+				WHERE IdUser ='".$friendId."' AND IdFriend = '".$userId."'");
+	$S_result = mysql_query($S_query, dbConnect());
+	if (!isset($S_result))
+	{
+		return 1;
+	}
+	
+	//ajout d'une autre entré pour que l'on soit amis des deux cotés
+	if($status == 1)
+	{
+		$S_query = ("INSERT INTO Friends (IdUser, IdFriend, Status)
+						VALUES ('".$userId."','".$friendId."','1')");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
+	//suppression d'un ami
+	if($status == 0)
+	{
+		$S_query = ("DELETE FROM Friends
+					WHERE IdUser ='".$userId."' AND IdFriend = '".$friendId."'");
+		$S_result = mysql_query($S_query, dbConnect());
+		if (!isset($S_result))
+		{
+			return 1;
+		}
+	}
 }
 ?>
