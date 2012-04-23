@@ -20,16 +20,48 @@ if ($result == FALSE)
 }
 else 
 {
-	echo($row['Pseudo'].'<br />');
-	echo($row['Password'].'<br />');
-	echo($row['Mail'].'<br />');
-	echo($row['LastName'].'<br />');
-	echo($row['FirstName'].'<br />');
-	echo($row['BornDate'].'<br />');
-	echo($row['Address'].'<br />');
-	echo($row['City'].'<br />');
-	echo($row['Country'].'<br />');
-	echo($row['Phone'].'<br />');
+	echo('Pseudo : '.$row['Pseudo'].'<br />');
+	echo('Password : '.$row['Password'].'<br />');
+	echo('Mail : '.$row['Mail'].'<br />');
+	echo('LastName : '.$row['LastName'].'<br />');
+	echo('FirstName : '.$row['FirstName'].'<br />');
+	echo('BornDate : '.$row['BornDate'].'<br />');
+	echo('Adress : '.$row['Address'].'<br />');
+	echo('City : '.$row['City'].'<br />');
+	echo('Country : '.$row['Country'].'<br />');
+	echo('Phone : '.$row['Phone'].'<br />');
+	echo('<br />---FIN---<br /><br />');
 }
-changeProfil();
+
+$error = changeProfil('Mackovich', 'Vincent', 'Ricard', 'mdp-qui-tue', 'ricard@intechinfo', '', '', 'Paris', 'France', 0699348986, '');
+
+if ($error == 0)
+{
+	$result = mysql_query($query, dbConnect());
+	$row = mysql_fetch_assoc($result);
+
+	echo('Après la modification, pour l\'utilisateur \'Mackovich\', on a :<br />');
+	if ($result == FALSE)
+	{ 
+		echo('Erreur : <br />'.mysql_error());
+	}
+	else 
+	{
+		echo('Pseudo : '.$row['Pseudo'].'<br />');
+		echo('Password : '.$row['Password'].'<br />');
+		echo('Mail : '.$row['Mail'].'<br />');
+		echo('LastName : '.$row['LastName'].'<br />');
+		echo('FirstName : '.$row['FirstName'].'<br />');
+		echo('BornDate : '.$row['BornDate'].'<br />');
+		echo('Adress : '.$row['Address'].'<br />');
+		echo('City : '.$row['City'].'<br />');
+		echo('Country : '.$row['Country'].'<br />');
+		echo('Phone : '.$row['Phone'].'<br />');
+		echo('<br />---FIN---<br /><br />');
+	}
+}
+else
+{
+	echo('Retour error de la fonction : '.$error);
+}
 ?>
