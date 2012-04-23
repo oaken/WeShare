@@ -6,7 +6,7 @@
 	{ ?>
 		<tr>
 			<td>
-				<a href='index.php?page=membres.php&profil=<?php echo $key['Pseudo']; ?>'><?php echo $key['Pseudo'] ?></a>
+				<a href='/WeShare/Membres/<?php echo $key['Pseudo']; ?>/'><?php echo $key['Pseudo'] ?></a>
 			</td>
 			<td>
 				<?php echo $key['RegisterDate'] ?>
@@ -21,7 +21,7 @@
 			if($key['Status'] == null)
 			{
 			?>
-				<a href='index.php?page=membres.php&addFriend=<?php echo $key['IdUser'] ?>'>
+				<a href='/WeShare/Membres/AddFriend/<?php echo $key['IdUser'] ?>/'>
 					<img src='<?php echo DIR_PUBLICS; ?>/images/plusIcon.jpg'>
 				</a>
 			<?php

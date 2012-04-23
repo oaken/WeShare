@@ -40,7 +40,7 @@ if (isset($_GET["page"]) && $user == null)
 		case "home.php":
 			$layout = "home.php";
 			break;
-		case "deconnection":
+		case "deconnexion":
 			disconnect();
 			$layout = "home.php";
 			break;
