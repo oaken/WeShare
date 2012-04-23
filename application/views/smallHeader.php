@@ -85,9 +85,9 @@
 		<div class="row-1">
 			<div class="fright">
 				<ul>
-					<li><a href="index.php?page=home.php" ><em><b>Accueil</b></em></a></li>
-					<li><a href="index.php?page=login.php" ><em><b>Connection</b></em></a></li>
-					<li><a href="index.php?page=register.php"><em><b>Inscription</b></em></a></li>
+					<li><a href="/WeShare/accueil/" ><em><b>Accueil</b></em></a></li>
+					<li><a href="/WeShare/connection/" ><em><b>Connection</b></em></a></li>
+					<li><a href="/WeShare/inscription/"><em><b>Inscription</b></em></a></li>
 				</ul>
 			</div>
 		</div>
