@@ -408,10 +408,54 @@ function getFriendshipRequest($idUser)
 }
 /*
 
-$type (E) : type de la requete, 0 = tout, 1 = personne, 2 = film
+$type (E) : type de la requete, 0 = tout les films, 
+								1 = tout le staff ,
+								2 = film en particulier, 
+								3 = staff en particulier
 */
 function searchData($type, $recherche)
 {
+	switch($type)
+	{
+		case "0":
+			$S_query = ("SELECT * FROM Movies");
+			$S_result = mysql_query($S_query, dbConnect());
+			if (!isset($S_result) || $S_result == false)
+			{
+				return -1;
+			}
+			$S_data[] = mysql_fetch_assoc($S_result);
+			break;
+			
+		case "1":
+			$S_query = ("SELECT * FROM Staff");
+			$S_result = mysql_query($S_query, dbConnect());
+			if (!isset($S_result) || $S_result == false)
+			{
+				return -1;
+			}
+			$S_data[] = mysql_fetch_assoc($S_result);
+			break;
+		case "2":
+			$S_query = ("SELECT * FROM Movies WHERE Name = '".$recherche."' REGEXP '^.*".$recherche.".*$'");
+			$S_result = mysql_query($S_query, dbConnect());
+			if (!isset($S_result) || $S_result == false)
+			{
+				return -1;
+			}
+			$S_data[] = mysql_fetch_assoc($S_result);
+			break;
+		case "3":
+			$S_query = ("SELECT * FROM Staff WHERE Name = '".$recherche."' REGEXP '^.*".$recherche.".*$'");
+			$S_result = mysql_query($S_query, dbConnect());
+			if (!isset($S_result) || $S_result == false)
+			{
+				return -1;
+			}
+			$S_data[] = mysql_fetch_assoc($S_result);
+			break;
+	}
+	return $S_data;
 }
 
 function replyToFriendship($userId, $friendId, $status)
