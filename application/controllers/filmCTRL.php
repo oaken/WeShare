@@ -37,5 +37,5 @@ else
 {
 	searchdata(1,0);
 }
-$layout = "film.php";
+$layout = "films.php";
 ?>
