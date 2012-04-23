@@ -6,11 +6,19 @@ define('DS', '/');
 define('ADDRESS', '/');
 include("../../config/config.php");
 
-$query_0 = sprintf(
+$query_0 = sprintf('UPDATE USERS SET FirstName = %s 
+					WHERE IdUSer = %d',
+					'Vincent', getId('Mackovich'));
+$result = mysql_query($query_0, dbConnect());
+
+if ($result == FALSE)
+{ echo('FAIL');}
+else
+{echo('Not Fail');}
 $query = sprintf('SELECT * FROM USERS WHERE IdUSer = %d', getId("Mackovich"));
 $result = mysql_query($query, dbConnect());
 $row = mysql_fetch_row($result);
-if (isset($result) )
+if ($result == TRUE )
 {
 	$it = 0;
 	while (isset($row[$it]))
@@ -37,6 +45,7 @@ Phone				DECIMAL(12,0),
 Avatar
 */
 // ------------------------------------------------------- //
+/*
 function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $Mail, 
 						$BornDate, $Adress, $City, $Country, $Phone, $Avatar)
 {
@@ -46,12 +55,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $Mail,
 						  WHERE Pseudo = %s 
 						  AND IdUSer = %d', 
 						  $FirstName, $Pseudo, $getId($Pseudo));
-		mysql_query();
-	}
-	else if (!empty())
-	{
-	
 	}
 }
-
+*/
 ?>
