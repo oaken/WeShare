@@ -30,6 +30,14 @@ switch($_GET['page'])
 		$active[4]= "";
 		$active[5]= "";
 		break;
+	case "login":
+		$active[0]= " class='active'";
+		$active[1]= "";
+		$active[2]= "";
+		$active[3]= "";
+		$active[4]= "";
+		$active[5]= "";
+		break;
 	case "films.php":
 		$active[0]= "";
 		$active[1]= " class='active'";
