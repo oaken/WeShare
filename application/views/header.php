@@ -97,12 +97,12 @@ elseif (!isset($_GET['page']))
 			<div class="fleft"><a href="films.html"><img src="images/logo" alt="" /></a></div>
 			<div class="fright">
 				<ul>
-					<li><a href="Accueil/"<?php echo $active[0];?>><em><b>Accueil</b></em></a></li>
-					<li><a href="Films/"<?php echo $active[1];?>><em><b>Films</b></em></a></li>
-					<li><a href="Evenements/"<?php echo $active[2];?>><em><b>Evènements</b></em></a></li>
-					<li><a href="Membres/"<?php echo $active[3];?>><em><b>Membres</b></em></a></li>
-					<li><a href="Profil/"<?php echo $active[4];?>><em><b>Profil</b></em></a></li>
-					<li><a href="Deconnection/"<?php echo $active[5];?>><em><b>Déconnexion</b></a></em></li>
+					<li><a href="/WeShare/Accueil/"<?php echo $active[0];?>><em><b>Accueil</b></em></a></li>
+					<li><a href="/WeShare/Films/"<?php echo $active[1];?>><em><b>Films</b></em></a></li>
+					<li><a href="/WeShare/Evenements/"<?php echo $active[2];?>><em><b>Evènements</b></em></a></li>
+					<li><a href="/WeShare/Membres/"<?php echo $active[3];?>><em><b>Membres</b></em></a></li>
+					<li><a href="/WeShare/Profil/"<?php echo $active[4];?>><em><b>Profil</b></em></a></li>
+					<li><a href="/WeShare/Deconnection/"<?php echo $active[5];?>><em><b>Déconnexion</b></a></em></li>
 				</ul>
 			</div>
 		</div>
