@@ -87,7 +87,7 @@
 	
 	<?php }
 	elseif (ENV_TEST == 1){ ?>
-	<form id="demoForm" method="post" action="index.php?page=register" class="bbq">
+	<form id="demoForm" method="post" action="/WeShare/register/" class="bbq">
 		<div id="fieldWrapper">
 			<span class="step" id="first">
 				<span class="font_normal_07em_black">Etape 1</span><br />

@@ -1,6 +1,6 @@
 	<!--Start of connection page-->
 	<div id = "connexion">
-		<form action = "index.php?page=login" method="post">
+		<form action = "/WeShare/login/" method="post">
 		<h1>Connexion</h1>
 		<p><label for = "pseudo">Pseudo : </label><input type="text" name="pseudo" id="pseudo" /></p>
 		<p><label for = "password">Mot de passe : </label><input type="password" name="password" id="password" /></p>
