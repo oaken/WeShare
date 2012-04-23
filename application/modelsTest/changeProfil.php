@@ -18,7 +18,7 @@ if ($result == FALSE)
 { 
 	echo('Erreur : <br />'.mysql_error());
 }
-else
+else 
 {
 	echo($row['Pseudo'].'<br />');
 	echo($row['Password'].'<br />');
