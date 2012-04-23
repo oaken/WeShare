@@ -85,9 +85,9 @@
 		<div class="row-1">
 			<div class="fright">
 				<ul>
-					<li><a href="/WeShare/accueil/" ><em><b>Accueil</b></em></a></li>
-					<li><a href="/WeShare/connection/" ><em><b>Connection</b></em></a></li>
-					<li><a href="/WeShare/inscription/"><em><b>Inscription</b></em></a></li>
+					<li><a href="/WeShare/" ><em><b>Accueil</b></em></a></li>
+					<li><a href="/WeShare/Connection/" ><em><b>Connection</b></em></a></li>
+					<li><a href="/WeShare/Inscription/"><em><b>Inscription</b></em></a></li>
 				</ul>
 			</div>
 		</div>

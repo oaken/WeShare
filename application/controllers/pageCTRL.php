@@ -33,7 +33,7 @@ if (isset($_GET["page"]))
 		case "profil.php":
 			include_once("profilCTRL.php");
 			break;
-		case "deconnection":
+		case "deconnexion":
 			disconnect();
 			$layout = "home.php";
 			break;

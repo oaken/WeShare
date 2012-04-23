@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /WeShare/
+
+
+RewriteRule   ^WeShare/Accueil/$   /WeShare/index.php?page=accueil.php [NC]
+RewriteRule   ^WeShare/Connection/$   /WeShare/index.php?page=login.php [NC]
+RewriteRule   ^WeShare/Inscription/$   /WeShare/index.php?page=register.php [NC]
+RewriteRule   ^WeShare/Membres/AddFriend/([0-9]+)/$   /WeShare/index.php?page=membres.php&addFriend=$1 [NC]
+RewriteRule   ^WeShare/Membres/(.+)/$   /WeShare/index.php?page=membres.php&profil=$1 [NC]
+RewriteRule   ^WeShare/Membres/$   /WeShare/index.php?page=membres.php [NC]
+RewriteRule   ^WeShare/Films/$   /WeShare/index.php?page=films.php [NC]
+RewriteRule   ^WeShare/Evenements/$   /WeShare/index.php?page=evenements.php [NC]
+RewriteRule   ^Weshare/Deconnexion/$ /Weshare/index.php?page=deconnexion [NC]
+RewriteRule   ^WeShare/Profil/$   /WeShare/index.php?page=profil.php [NC]
+RewriteRule   ^WeShare/Profil/Edit/$   /WeShare/index.php?page=profil.php&action=edit [NC]
+RewriteRule   ^WeShare/Profil/Amis/$   /WeShare/index.php?page=profil.php&action=amis [NC]
+RewriteRule   ^WeShare/Profil/Films/$   /WeShare/index.php?page=profil.php&action=films [NC]
+RewriteRule   ^Weshare/Profil/(.+)/$ /Weshare/index.php?page=profil.php&action=$1
+</IfModule>

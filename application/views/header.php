@@ -72,7 +72,7 @@ if (isset($_GET['page']))
 			$active[4]= " class='active'";
 			$active[5]= "";
 			break;
-		case "deconnection.php":
+		case "deconnexion":
 			$active[0]= "";
 			$active[1]= "";
 			$active[2]= "";
@@ -102,7 +102,7 @@ elseif (!isset($_GET['page']))
 					<li><a href="/WeShare/Evenements/"<?php echo $active[2];?>><em><b>Evènements</b></em></a></li>
 					<li><a href="/WeShare/Membres/"<?php echo $active[3];?>><em><b>Membres</b></em></a></li>
 					<li><a href="/WeShare/Profil/"<?php echo $active[4];?>><em><b>Profil</b></em></a></li>
-					<li><a href="/WeShare/Deconnection/"<?php echo $active[5];?>><em><b>Déconnexion</b></a></em></li>
+					<li><a href="/WeShare/Deconnexion/"<?php echo $active[5];?>><em><b>Déconnexion</b></a></em></li>
 				</ul>
 			</div>
 		</div>

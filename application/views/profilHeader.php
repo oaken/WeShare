@@ -30,10 +30,10 @@ switch($layoutAdd)
 			<div class='row-4'>
 				<div class='fright'>
 					<ul>
-						<li><a href='/WeShare/profil/'".$active[0]."><em><b>Profil</b></em></a></li>
-						<li><a href='/WeShare/edit/'".$active[1]."><em><b>Edition du profil</b></em></a></li>
-						<li><a href='/WeShare/amis/'".$active[2]."><em><b>Amis</b></em></a></li>
-						<li><a href='/WeShare/films/'".$active[3]."><em><b>Mes films</b></em></a></li>
+						<li><a href='/WeShare/Profil/'".$active[0]."><em><b>Profil</b></em></a></li>
+						<li><a href='/WeShare/Profil/Edit/'".$active[1]."><em><b>Edition du profil</b></em></a></li>
+						<li><a href='/WeShare/Profil/Amis/'".$active[2]."><em><b>Amis</b></em></a></li>
+						<li><a href='/WeShare/Profil/Films/'".$active[3]."><em><b>Mes films</b></em></a></li>
 					</ul>
 				</div>
 			</div>";
