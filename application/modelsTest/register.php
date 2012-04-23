@@ -2,7 +2,7 @@
 /*
 Test de register si tout se passe correctement on voit écris la date d'inscription, le pseudo, pass, mail
 
-Auteur : Alexandre ARNAL
+Auteur : Alexandre ARNAL, Ludovic Tresson
 */
 include("../models/mainModels.php");
 define('DS', '/');
