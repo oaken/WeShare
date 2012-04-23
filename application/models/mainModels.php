@@ -365,19 +365,24 @@ function getId($pseudo)
 
 function getFriends($idUser)
 {
-	$S_query = ("SELECT Pseudo,IdUser FROM Users 
-					WHERE IdUser = 
-						(SELECT IdFriend 
-							FROM Friends 
-								WHERE IdUser ='".$idUser."' AND Status = 1)");
+	$S_friend = false;
+	$S_query = ("SELECT U.Pseudo,U.IdUser FROM Users AS U
+					LEFT JOIN Friends AS F
+					ON U.IdUser = F.IdFriend AND F.IdUser = '".$idUser."'
+					WHERE F.Status = 1");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result) || $S_result == false)
 	{
 		return -1;
 	}
-	$S_friend[] = mysql_fetch_assoc($S_result);
 	
-	if($S_friend[0] == false)
+	$S_nbRow = mysql_num_rows($S_result);
+	for ($i=0;$i< $S_nbRow;$i++)
+	{
+		$S_friend[] = mysql_fetch_assoc($S_result);
+	}
+	
+	if($S_friend == false)
 	{
 		return -1;
 	}
@@ -386,20 +391,23 @@ function getFriends($idUser)
 
 function getFriendshipRequest($idUser)
 {
-	$S_query = ("SELECT Pseudo,IdUser FROM Users 
-					WHERE IdUser = 
-						(SELECT IdUser 
-							FROM Friends 
-								WHERE IdFriend ='".$idUser."' AND Status = 0)");
+	$S_friendRequest = false;
+	$S_query = ("SELECT U.Pseudo,U.IdUser FROM Users AS U
+					LEFT JOIN Friends AS F
+					ON U.IdUser = F.IdUser AND F.IdFriend = '".$idUser."'
+					WHERE F.Status = 0");
 	$S_result = mysql_query($S_query, dbConnect());
 	if (!isset($S_result) || $S_result == false)
 	{
 		return -1;
 	}
-	$S_friendRequest[] = mysql_fetch_assoc($S_result);
-
+	$S_nbRow = mysql_num_rows($S_result);
+	for ($i=0;$i< $S_nbRow;$i++)
+	{
+		$S_friendRequest[] = mysql_fetch_assoc($S_result);
+	}
 	//si il n'y a pas de résultat on sort prématurément en retournant -1
-	if($S_friendRequest[0] == false)
+	if($S_friendRequest == false)
 	{
 		return -1;
 	}
