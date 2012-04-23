@@ -19,65 +19,77 @@
 <div id="taille">
 <div class="tail-bottom">
 <!-- HEADER -->
-<?php 
-switch($_GET['page'])
+<?php
+if (isset($_GET['page']))
 {
-	case "accueil.php":
-		$active[0]= " class='active'";
-		$active[1]= "";
-		$active[2]= "";
-		$active[3]= "";
-		$active[4]= "";
-		$active[5]= "";
-		break;
-	case "login":
-		$active[0]= " class='active'";
-		$active[1]= "";
-		$active[2]= "";
-		$active[3]= "";
-		$active[4]= "";
-		$active[5]= "";
-		break;
-	case "films.php":
-		$active[0]= "";
-		$active[1]= " class='active'";
-		$active[2]= "";
-		$active[3]= "";
-		$active[4]= "";
-		$active[5]= "";
-		break;
-	case "evenements.php":
-		$active[0]= "";
-		$active[1]= "";
-		$active[2]= " class='active'";
-		$active[3]= "";
-		$active[4]= "";
-		$active[5]= "";
-		break;
-	case "membres.php":
-		$active[0]= "";
-		$active[1]= "";
-		$active[2]= "";
-		$active[3]= " class='active'";
-		$active[4]= "";
-		$active[5]= "";
-		break;
-	case "profil.php":
-		$active[0]= "";
-		$active[1]= "";
-		$active[2]= "";
-		$active[3]= "";
-		$active[4]= " class='active'";
-		$active[5]= "";
-		break;
-	case "deconnection.php":
-		$active[0]= "";
-		$active[1]= "";
-		$active[2]= "";
-		$active[3]= "";
-		$active[4]= "";
-		$active[5]= " class='active'";
-		break;
+	switch($_GET['page'])
+	{
+		case "accueil.php":
+			$active[0]= " class='active'";
+			$active[1]= "";
+			$active[2]= "";
+			$active[3]= "";
+			$active[4]= "";
+			$active[5]= "";
+			break;
+		case "login":
+			$active[0]= " class='active'";
+			$active[1]= "";
+			$active[2]= "";
+			$active[3]= "";
+			$active[4]= "";
+			$active[5]= "";
+			break;
+		case "films.php":
+			$active[0]= "";
+			$active[1]= " class='active'";
+			$active[2]= "";
+			$active[3]= "";
+			$active[4]= "";
+			$active[5]= "";
+			break;
+		case "evenements.php":
+			$active[0]= "";
+			$active[1]= "";
+			$active[2]= " class='active'";
+			$active[3]= "";
+			$active[4]= "";
+			$active[5]= "";
+			break;
+		case "membres.php":
+			$active[0]= "";
+			$active[1]= "";
+			$active[2]= "";
+			$active[3]= " class='active'";
+			$active[4]= "";
+			$active[5]= "";
+			break;
+		case "profil.php":
+			$active[0]= "";
+			$active[1]= "";
+			$active[2]= "";
+			$active[3]= "";
+			$active[4]= " class='active'";
+			$active[5]= "";
+			break;
+		case "deconnection.php":
+			$active[0]= "";
+			$active[1]= "";
+			$active[2]= "";
+			$active[3]= "";
+			$active[4]= "";
+			$active[5]= " class='active'";
+			break;
+	}
+}
+elseif (!isset($_GET['page']))
+{
+	$active[0]= " class='active'";
+	$active[1]= "";
+	$active[2]= "";
+	$active[3]= "";
+	$active[4]= "";
+	$active[5]= "";	
 }
 ?>
 	<div id="header">
