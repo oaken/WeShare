@@ -111,7 +111,7 @@
 				<label for="countryPrefix_fi">Numero de tel : </label><br />
 				<input class="input_field_12em digits" name="phoneNumber" id="phoneNumber_fi" /><br />
 				<label for="adresse">Adresse : </label><br />
-				<input class="input_field_12em" name="adress" id="adress" /><br />
+				<input class="input_field_12em" name="address" id="address" /><br />
 				<label for="ville">Ville : </label><br />
 				<input class="input_field_12em" name="city" id="city" /><br />
 				<label for="pays">Dans quel pays habitez-vous ?</label><br />

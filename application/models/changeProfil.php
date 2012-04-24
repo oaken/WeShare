@@ -1,14 +1,14 @@
 <?php
 /* 
 La fonction changeProfil sert à entrer le(s) modification(s) des données utilisateur, faite(s) par lui-même, dans la base de donnée.
-$Pseudo, 
+$IdUser, 
 $FirstName, 
 $LastName, 
 $Password, 
 $RetypePwd, 
 $Mail, 
 $BornDate, 
-$Adress, 
+$address, 
 $City, 
 $Country, 
 $Phone, 
@@ -20,21 +20,21 @@ $error (S): int
 2	: erreur requête invalide/problème avec la BDD;
 3	: numéro de téléphone trop long ou trop court
 4	: erreur format image avatar invalide
-5	: la confirmation du mot de passe à échouer
+5	: la confirmation du mot de passe a échoué
 Auteur: Vincent Ricard avec l^heureuse participation partielle mais utile de Tresson. Merci à lui.
 */
 
-function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Mail, 
-					   	 $BornDate, $Adress, $City, $Country, $Phone, $Avatar)
+function	changeProfil($IdUser, $FirstName, $LastName, $Password, $RetypePwd, $Mail, 
+					   	 $BornDate, $address, $City, $Country, $Phone, $Avatar)
 {
 	$error = 0;
 	if (!empty($FirstName))
-	{	
+	{
 		if (strlen($FirstName) < 20)
 		{
 			$query = sprintf("UPDATE USERS SET FirstName = '%s' 
 							 WHERE IdUSer = %d",
-							 $FirstName, getId($Pseudo));
+							 $FirstName, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -52,7 +52,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET LastName = '%s' 
 							WHERE IdUSer = %d",
-							$LastName, getId($Pseudo));
+							$LastName, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -76,7 +76,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 			{
 				$query = sprintf("UPDATE USERS SET Password = '%s'
 								 WHERE IdUSer = %d",
-								$Password, getId($Pseudo));
+								$Password, $IdUser);
 				$result = mysql_query($query, dbConnect());
 				if (!isset($result))
 				{
@@ -95,7 +95,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET Mail = '%s' 
 							 WHERE IdUSer = %d",
-							$Mail, getId($Pseudo));
+							$Mail, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -111,20 +111,20 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 	{
 		$query = sprintf("UPDATE USERS SET BornDate = '%s' 
 						 WHERE IdUSer = %d",
-						$BornDate, getId($Pseudo));
+						$BornDate, $IdUser);
 		$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
 				$error = 1;
 			}
 	}
-	if (!empty($Adress))
+	if (!empty($address))
 	{
-		if (strlen($Adress) < 211)
+		if (strlen($address) < 211)
 		{
-			$query = sprintf("UPDATE USERS SET Adress = '%s' 
+			$query = sprintf("UPDATE USERS SET address = '%s' 
 							WHERE IdUSer = %d",
-							$Adress, getId($Pseudo));
+							$address, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -142,7 +142,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET City = '%s' 
 							 WHERE IdUSer = %d",
-							$City, getId($Pseudo));
+							$City, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -160,7 +160,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET Country = '%s' 
 							 WHERE IdUSer = %d",
-							$Country, getId($Pseudo));
+							$Country, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -178,7 +178,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET $Phone = '%s' 
 							 WHERE IdUSer = %d",
-							 $Phone, getId($Pseudo));
+							 $Phone, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
@@ -198,7 +198,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Ma
 		{
 			$query = sprintf("UPDATE USERS SET $Avatar = '%s' 
 							 WHERE IdUSer = %d",
-							 $Avatar, getId($Pseudo));
+							 $Avatar, $IdUser);
 			$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
