@@ -30,10 +30,11 @@ else
 	echo('City : '.$row['City'].'<br />');
 	echo('Country : '.$row['Country'].'<br />');
 	echo('Phone : '.$row['Phone'].'<br />');
-	echo('<br />---FIN---<br /><br />');
+	echo('Avatar : '.$row['Avatar'].'<br />');
+	echo('---FIN---<br /><br />');
 }
 
-$error = changeProfil('Mackovich', 'Vincent', 'Ricard', 'mdp-qui-tue', 'ricard@intechinfo', '', '', 'Paris', 'France', 0699348986, '');
+$error = changeProfil('Mackovich', 'Henri', 'Lamard', 'mondeptpass', 'mdp', 'lamard@intechinfo', '1991-03-16', '', 'Dallas', 'USA', '0742432124', 'avatar.jpg');
 
 if ($error == 0)
 {
@@ -57,7 +58,8 @@ if ($error == 0)
 		echo('City : '.$row['City'].'<br />');
 		echo('Country : '.$row['Country'].'<br />');
 		echo('Phone : '.$row['Phone'].'<br />');
-		echo('<br />---FIN---<br /><br />');
+		echo('Avatar : '.$row['Avatar'].'<br />');
+		echo('---FIN---<br /><br />');
 	}
 }
 else
