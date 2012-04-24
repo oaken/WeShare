@@ -15,8 +15,8 @@ BornDate			DATE,
 Address			 	VARCHAR(255),
 City			 	VARCHAR(255),
 Country			 	VARCHAR(255),
-Phone				DECIMAL(12,0),
-Avatar				BLOB,
+Phone				VARCHAR(255),
+Avatar				LONGTEXT,
 PRIMARY KEY(IdUser));
 
 /* table Events */
@@ -78,7 +78,7 @@ FOREIGN KEY (IdGroup)
 CREATE TABLE IF NOT EXISTS PMs
 (IdPM				INT 			NOT NULL	AUTO_INCREMENT,
 IdSender			INT 			NOT NULL,
-Message				TEXT			NOT NULL,
+Message				LONGTEXT		NOT NULL,
 MessageDate			DATE			NOT NULL,
 PRIMARY KEY(IdPM));
 
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS Movies
 Name				VARCHAR(255)	NOT NULL,
 Synopsis			TEXT			NOT NULL,
 DateOfRecord		DATE			NOT NULL,
-Poster				BLOB,
+Poster				LONGTEXT,
 PRIMARY KEY(IdMovie));
 
 /* table UserMovies */
@@ -131,7 +131,7 @@ LastName			VARCHAR(255)	NOT NULL,
 FirstName			VARCHAR(255)	NOT NULL,
 BornDate			DATE,
 Bio					TEXT,
-Picture				BLOB,
+Picture				LONGTEXT,
 PRIMARY KEY(IdStaff));	
 
 /* table MoviesStaffs */
