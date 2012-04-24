@@ -13,8 +13,21 @@ if(isset($_GET['action'])){
 			$layoutAdd = 0;
 			break;
 		case "edit":
-			$layout="editProfil.php";
-			$layoutAdd = 1;
+			if (isset($_GET['subaction']))
+			{
+				switch ($_GET['subaction'])
+				{
+				case "changeprofil":
+					$IdUser = getId($_SESSION['User']);
+					include_once("changeProfilCTRL.php");
+					break;
+				}
+			}
+			else
+			{
+				$layout="editProfil.php";
+				$layoutAdd = 1;
+			}
 			break;
 		case "amis":
 			$userId = getId($user);
