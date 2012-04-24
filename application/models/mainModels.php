@@ -522,10 +522,11 @@ $error (S): int
 2	: erreur requête invalide/problème avec la BDD;
 3	: numéro de téléphone trop long ou trop court
 4	: erreur format image avatar invalide
+5	: la confirmation du mot de passe à échouer
 Auteur: Vincent Ricard avec l^heureuse participation partielle mais utile de Tresson. Merci à lui.
 */
 
-function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*/$Mail, 
+function	changeProfil($Pseudo, $FirstName, $LastName, $Password, $RetypePwd, $Mail, 
 					   	 $BornDate, $Adress, $City, $Country, $Phone, $Avatar)
 {
 	$error = 0;
@@ -567,21 +568,22 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	}
 	if (!empty($Password))
 	{
-		/*
-			if ($Password != $RetypePwd)
-			{
-				$error;
-			}
-		*/
 		if (strlen($Password) < 61)
 		{
-			$query = sprintf("UPDATE USERS SET Password = '%s' 
-							 WHERE IdUSer = %d",
-							$Password, getId($Pseudo));
-			$result = mysql_query($query, dbConnect());
-			if (!isset($result))
+			if ($Password != $RetypePwd)
 			{
-				$error = 2;
+				$error = 5;
+			}
+			else
+			{
+				$query = sprintf("UPDATE USERS SET Password = '%s' 
+								 WHERE IdUSer = %d",
+								$Password, getId($Pseudo));
+				$result = mysql_query($query, dbConnect());
+				if (!isset($result))
+				{
+					$error = 2;
+				}
 			}
 		}
 		else

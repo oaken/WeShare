@@ -34,7 +34,7 @@ else
 	echo('---FIN---<br /><br />');
 }
 
-$error = changeProfil('Mackovich', 'Henri', 'Lamard', 'mondeptpass', 'lamard@intechinfo', '1991-03-16', '', 'Dallas', 'USA', '0742432124', 'avatar.jpg');
+$error = changeProfil('Mackovich', 'Henri', 'Lamard', 'mondeptpass', 'mdp', 'lamard@intechinfo', '1991-03-16', '', 'Dallas', 'USA', '0742432124', 'avatar.jpg');
 
 if ($error == 0)
 {
