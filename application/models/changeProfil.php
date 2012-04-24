@@ -1,3 +1,4 @@
+<?php
 /* 
 La fonction changeProfil sert à entrer le(s) modification(s) des données utilisateur, faite(s) par lui-même, dans la base de donnée.
 $Pseudo, 
