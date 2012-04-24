@@ -30,7 +30,7 @@ else
 	echo('City : '.$row['City'].'<br />');
 	echo('Country : '.$row['Country'].'<br />');
 	echo('Phone : '.$row['Phone'].'<br />');
-	echo('<br />---FIN---<br /><br />');
+	echo('---FIN---<br /><br />');
 }
 
 $error = changeProfil('Mackovich', 'Vincent', 'Ricard', 'mdp-qui-tue', 'ricard@intechinfo', '', '', 'Paris', 'France', 0699348986, '');
@@ -57,7 +57,7 @@ if ($error == 0)
 		echo('City : '.$row['City'].'<br />');
 		echo('Country : '.$row['Country'].'<br />');
 		echo('Phone : '.$row['Phone'].'<br />');
-		echo('<br />---FIN---<br /><br />');
+		echo('---FIN---<br /><br />');
 	}
 }
 else

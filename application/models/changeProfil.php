@@ -28,7 +28,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	$error = 0;
 	if (!empty($FirstName))
 	{	
-		if (!count($FirstName) > 20)
+		if (strlen($FirstName) < 20)
 		{
 			$query = sprintf("UPDATE USERS SET FirstName = '%s' 
 							WHERE IdUSer = %d",
@@ -41,12 +41,15 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 		}
 		else
 		{
+			var_dump($FirstName);
+			echo('<br />Firstname fourni  : {'.$FirstName.'}<br >');
+			echo('Taille : '.strlen($FirstName).'<br />');
 			$error = 1;
 		}
 	}
 	else if (!empty($LastName))
 	{
-		if (!count(LastName) > 20)
+		if (strlen(LastName) < 20)
 		{
 			$query = sprintf("UPDATE USERS SET LastName = '%s' 
 							WHERE IdUSer = %d",
@@ -70,7 +73,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 				$error;
 			}
 		*/
-		if (!count($Password) > 65)
+		if (strlen($Password) < 61)
 		{
 			$query = sprintf("UPDATE USERS SET Password = '%s' 
 							 WHERE IdUSer = %d",
@@ -88,7 +91,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	}
 	else if (!empty($Mail))
 	{
-		if (!count($Mail) > 255)
+		if (strlen($Mail) < 211)
 		{
 			$query = sprintf("UPDATE USERS SET Mail = '%s' 
 							 WHERE IdUSer = %d",
@@ -112,12 +115,12 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 		$result = mysql_query($query, dbConnect());
 			if (!isset($result))
 			{
-				$error = 2;
+				$error = 1;
 			}
 	}
 	else if (!empty($Adress))
 	{
-		if (!count($Adress) > 255)
+		if (strlen($Adress) < 211)
 		{
 			$query = sprintf("UPDATE USERS SET Adress = '%s' 
 							WHERE IdUSer = %d",
@@ -135,7 +138,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	}
 	else if (!empty($City))
 	{
-		if (!count($City) > 60) // voir http://fr.wikipedia.org/wiki/Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
+		if (strlen($City) < 60) // voir http://fr.wikipedia.org/wiki/Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch
 		{
 			$query = sprintf("UPDATE USERS SET City = '%s' 
 							 WHERE IdUSer = %d",
@@ -153,7 +156,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	}
 	else if (!empty($Country))
 	{
-		if (!count($Country) > 35)
+		if (strlen($Country) < 31)
 		{
 			$query = sprintf("UPDATE USERS SET Country = '%s' 
 							 WHERE IdUSer = %d",
@@ -171,7 +174,7 @@ function	changeProfil($Pseudo, $FirstName, $LastName, $Password, /*, $RetypePwd*
 	}
 	else if (!empty($Phone))
 	{
-		if (!count($Phone) > 10)
+		if (count($Phone) < 10)
 		{
 			$query = sprintf("UPDATE USERS SET $Phone = %d 
 							WHERE IdUSer = %d",
